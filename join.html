@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>انضم إلينا</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("eWZbHYfmTnzt9QeLg"); // معرّف EmailJS الخاص بك
+    })();
+  </script>
+</head>
+<body>
+  <header>
+        <div class="logo-container">
+            <img src="https://upload.wikimedia.org/wikipedia/ar/thumb/4/47/FC_Barcelona_%28crest%29.svg/1200px-FC_Barcelona_%28crest%29.svg.png" alt="شعار برشلونة">
+            <h1 data-i18n="club-name">نادي برشلونة</h1>
+        </div>
+
+        <nav>
+            <a href="index.html" class="active">الرئيسية</a>
+            <a href="team.html">الفريق</a>
+            <a href="https://www.fcbarcelona.fr/fr/">الأخبار</a>
+            <a href="history.html">التاريخ</a>
+            <a href="join.html" class="join-btn" id="joinBtn">انضم إلينا</a>
+ <a href="https://www.instagram.com/ak_ram_gr/" target="_blank" class="instagram-link">
+        <i class="fab fa-instagram" style="font-size: 34px;"></i>
+    </a>
+	<a href="https://www.youtube.com/user/fcbarcelona" target="_blank" class="youtube-link">
+        <i class="fab fa-youtube" style="font-size: 34px;"></i>
+    </a>
+	
+</nav>
+</a>
+
+
+
+
+       
+
+        <div id="auth-section">
+            <!-- سيتم تعبئته بالجافاسكريبت -->
+        </div>
+    </header>
+
+  <main class="join-container">
+    <form id="join-form">
+      <div class="form-group">
+        <label for="first_name">الاسم الأول</label>
+        <input type="text" id="first_name" name="first_name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="last_name">اللقب</label>
+        <input type="text" id="last_name" name="last_name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">البريد الإلكتروني</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      
+      <div class="form-group">
+        <button type="submit" class="submit-btn">تسجيل</button>
+      </div>
+    </form>
+  </main>
+
+ <footer>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>عن النادي</h3>
+                <p>نادي برشلونة هو أكثر من مجرد نادي، إنه رمز للهوية الكاتالونية والقيم الإنسانية.</p>
+            </div>
+           
+            <div class="footer-section contact">
+                <h3>تواصل معنا</h3>
+                <p>البريد الإلكتروني: kingdomg226@gmail.com</p>
+                <p>الهاتف : 0778581024</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 نادي برشلونة. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+  <script>
+    // التحقق من التسجيل المسبق
+    document.addEventListener("DOMContentLoaded", function() {
+      const storedName = localStorage.getItem("name");
+      if (storedName) {
+        const joinLinks = document.querySelectorAll('a[href="subscribe.html"]');
+        joinLinks.forEach(link => {
+          link.textContent = "مرحباً " + storedName;
+          link.href = "#";
+          link.style.pointerEvents = "none";
+          link.style.opacity = "0.6";
+          link.style.cursor = "default";
+          link.title = "لقد قمت بالتسجيل بالفعل";
+        });
+      }
+    });
+
+    // إرسال النموذج
+    document.getElementById("join-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // جمع البيانات
+      const firstName = document.getElementById("first_name").value;
+      const lastName = document.getElementById("last_name").value;
+      const fullName = firstName + " " + lastName;
+
+      // حفظ البيانات في localStorage
+      localStorage.setItem("name", fullName);
+
+      // إرسال البيانات عبر EmailJS
+      emailjs.sendForm('service_fcyoqws', 'template_zymnwj7', this)
+        .then(function(response) {
+          alert("✅ تم التسجيل بنجاح! مرحباً " + fullName);
+          
+          // تحديث رابط الانضمام في القائمة
+          const joinLinks = document.querySelectorAll('a[href="subscribe.html"]');
+          joinLinks.forEach(link => {
+            link.textContent = "مرحباً " + fullName;
+            link.href = "#";
+            link.style.pointerEvents = "none";
+            link.style.opacity = "0.6";
+            link.style.cursor = "default";
+            link.title = "لقد قمت بالتسجيل بالفعل";
+          });
+          
+          // التوجيه إلى الصفحة الحصرية
+          window.location.href = "exclusive.html";
+        }, function(error) {
+          alert("❌ حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.");
+          console.error("EmailJS Error:", error);
+        });
+    });
+
+    // برجر القائمة (للتجاوبية)
+    const burger = document.querySelector('.burger');
+    const nav = document.querySelector('.nav-links');
+    const navLinks = document.querySelectorAll('.nav-links li');
+
+    burger.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      
+      navLinks.forEach((link, index) => {
+        if (link.style.animation) {
+          link.style.animation = '';
+        } else {
+          link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+        }
+      });
+      
+      burger.classList.toggle('toggle');
+    });
+  </script>
+</body>
+</html>

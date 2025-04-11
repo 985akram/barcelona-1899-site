@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>المحتوى الحصري</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to right, #8A002E, #003366);
+      color: white;
+      text-align: center;
+      padding: 30px;
+      margin: 0;
+    }
+
+    header {
+      background-color: #8A002E;
+      padding: 20px 0;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      max-width: 100px;
+      margin: 0 auto;
+    }
+
+    .logo img {
+      width: 100%;
+      height: auto;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .exclusive-content {
+      background-color: rgba(0, 51, 102, 0.8);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(138, 0, 46, 0.5);
+      max-width: 700px;
+      margin: auto;
+      border: 2px solid #8A002E;
+    }
+
+    .exclusive-content p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .exclusive-content img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 15px;
+      margin: 20px auto;
+      border: 3px solid #8A002E;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 30px;
+      background-color: #8A002E;
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-button:hover {
+      background-color: #003366;
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #003366;
+      color: white;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    ul {
+      text-align: right;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+      position: relative;
+      padding-right: 25px;
+    }
+
+    li:before {
+      content: "⚽";
+      position: absolute;
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="barca-logo.png" alt="شعار برشلونة">
+    </div>
+  </header>
+
+  <h1>🎉 مرحبًا بك في المحتوى الحصري لمشجعي برشلونة!</h1>
+
+  <div class="exclusive-content">
+    <p>شكرًا لانضمامك إلى عائلة برشلونة. 👏</p>
+    <p>أنت الآن جزء من مجتمع النادي المميز الذي يحصل على:</p>
+    <ul>
+      <li>أخبار الفريق الحصرية قبل الجميع</li>
+      <li>مقاطع فيديو خاصة من خلف الكواليس</li>
+      <li>فرص الفوز بتذاكر المباريات</li>
+      <li>خصومات حصرية على منتجات النادي</li>
+    </ul>
+
+    <img src="barca-team.jpg" alt="فريق برشلونة" />
+
+    <p style="margin-top: 20px; font-weight: bold;">
+      ترقّب الكثير من المحتوى الحصري قريبًا... 🚀
+    </p>
+  </div>
+
+  <a href="index.html" class="back-button">⬅ الرجوع إلى الرئيسية</a>
+
+  <footer>
+    <p>© 2023 نادي برشلونة - جميع الحقوق محفوظة</p>
+  </footer>
+
+  <script>
+    document.getElementById('join-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const firstName = document.getElementById('first-name').value;
+      const lastName = document.getElementById('last-name').value;
+      const fullName = firstName + " " + lastName;
+
+      // حفظ الاسم في localStorage
+      localStorage.setItem("name", fullName);
+
+      // إرسال النموذج عبر EmailJS
+      emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this, 'YOUR_USER_ID')
+        .then(() => {
+          alert("تم التسجيل بنجاح!");
+          window.location.href = 'exclusive.html';
+        }, function(error) {
+          alert("حدث خطأ أثناء الإرسال");
+          console.error(error);
+        });
+    });
+  </script>
+
+</body>
+</html>
