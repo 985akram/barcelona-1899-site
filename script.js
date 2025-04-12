@@ -509,3 +509,53 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     });
 });
 localStorage.setItem("name", name);
+document.addEventListener("DOMContentLoaded", function() {
+    const joinBtn = document.getElementById("joinBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const storedName = localStorage.getItem("name");
+
+    if (storedName) {
+        joinBtn.textContent = storedName;
+        joinBtn.href = "#";
+        joinBtn.style.pointerEvents = "none";
+        joinBtn.style.opacity = "0.6";
+        logoutBtn.style.display = "inline-block";
+    } else {
+        joinBtn.textContent = "انضم إلينا";
+        joinBtn.href = "join.html";
+        joinBtn.style.pointerEvents = "auto";
+        joinBtn.style.opacity = "1";
+        logoutBtn.style.display = "none";
+    }
+});
+window.location.href = "logout.html";
+logoutBtn.addEventListener("click", function() {
+    const userName = localStorage.getItem("name");
+    const userEmail = localStorage.getItem("email");
+
+    emailjs.send('service_fcyoqws', 'template_logout', {
+        user_name: userName,
+        user_email: userEmail,
+        logout_date: new Date().toLocaleString()
+    })
+    .then(function(response) {
+        window.location.href = "logout.html";
+    }, function(error) {
+        alert("❌ حدث خطأ أثناء تسجيل الخروج. يرجى المحاولة مرة أخرى.");
+        console.error("EmailJS Error:", error);
+    });
+});
+fetch('https://api.emailjs.com/api/v1.0/email/send', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    service_id: "service_fcyoqws",
+    template_id: "template_jb2o9mm",
+    user_id: "eWZbHYfmTnzt9QeLg",
+    template_params: templateParams
+  })
+})
+.then(response => console.log("Email sent!", response))
+.catch(error => console.error("Error sending email:", error));

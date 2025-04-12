@@ -769,3 +769,34 @@ footer.dark-mode {
   border-radius: 8px;
   font-size: 16px;
 }
+.logout-btn {
+    padding: 8px 20px;
+    background-color: #8A002E;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 10px;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #A50044;
+    transform: scale(1.05);
+}.logout-btn {
+    padding: 8px 20px;
+    background-color: #8A002E;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 10px;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #A50044;
+    transform: scale(1.05);
+}

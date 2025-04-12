@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تسجيل الخروج</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .message-box {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .message-box h1 {
+      color: #c8102e;
+      margin-bottom: 20px;
+    }
+
+    .message-box p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .back-btn {
+      background-color: #002147;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background-color: #001530;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="message-box">
+    <h1>👋 إلى اللقاء!</h1>
+    <p>لقد تم تسجيل الخروج بنجاح.</p>
+    <a href="index.html" class="back-btn" id="backHomeBtn">العودة إلى الرئيسية</a>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // تهيئة EmailJS بالمفتاح العام الخاص بك
+      emailjs.init("eWZbHYfmTnzt9QeLg"); // استبدل هذا بالمفتاح العام الخاص بك
+
+      const userName = localStorage.getItem("name");
+      const userEmail = localStorage.getItem("email");
+
+      if (userName && userEmail) {
+        // إرسال رسالة تسجيل الخروج إلى البريد الإلكتروني الخاص بك
+        emailjs.send("service_fcyoqws", "template_jb2o9mm", {
+          to_email: "kingdomg226@gmail.com", // استبدل هذا ببريدك الإلكتروني
+          user_name: userName,
+          user_email: userEmail,
+          logout_date: new Date().toLocaleString("ar-EG"),
+        }).then(() => {
+          console.log("✅ تم إرسال رسالة تسجيل الخروج بنجاح.");
+        }).catch((error) => {
+          console.error("❌ فشل في إرسال رسالة تسجيل الخروج:", error);
+        });
+
+        // إزالة البيانات من التخزين المحلي
+        localStorage.removeItem("name");
+        localStorage.removeItem("email");
+      }
+
+      // عند الضغط على زر العودة، نعيد تفعيل زر الانضمام (اختياري)
+      document.getElementById("backHomeBtn").addEventListener("click", function () {
+        localStorage.removeItem("name");
+        localStorage.removeItem("email");
+      });
+    });
+  </script>
+
+</body>
+</html>
