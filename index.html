@@ -24,6 +24,7 @@
             <a href="https://www.fcbarcelona.fr/fr/">الأخبار</a>
             <a href="history.html">التاريخ</a>
             <a href="join.html" class="join-btn" id="joinBtn">انضم إلينا</a>
+			 <button id="logoutBtn" class="logout-btn" style="display: none;">تسجيل الخروج</button>
  <a href="https://www.instagram.com/ak_ram_gr/" target="_blank" class="instagram-link">
         <i class="fab fa-instagram" style="font-size: 34px;"></i>
     </a>
@@ -301,6 +302,46 @@ document.getElementById('join-form').addEventListener('submit', function(e) {
     });
 });
 </script>
+<script>
+    // تحديث السكربت لإدارة تسجيل الدخول والخروج
+    document.addEventListener("DOMContentLoaded", function() {
+        const joinBtn = document.getElementById("joinBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const storedName = localStorage.getItem("name");
+
+        // التحقق من حالة المستخدم
+        if (storedName) {
+            joinBtn.textContent = storedName;
+            joinBtn.href = "#";
+            joinBtn.style.pointerEvents = "none";
+            joinBtn.style.opacity = "0.6";
+            logoutBtn.style.display = "inline-block";
+        }
+
+        // معالجة تسجيل الخروج
+        logoutBtn.addEventListener("click", function() {
+            const userName = localStorage.getItem("name");
+            const userEmail = localStorage.getItem("email");
+            
+            // إرسال بريد الخروج
+            emailjs.send('service_fcyoqws', 'template_logout', {
+                user_name: userName,
+                user_email: userEmail,
+                logout_date: new Date().toLocaleString()
+            })
+            .then(function(response) {
+                // مسح بيانات المستخدم
+                localStorage.removeItem("name");
+                localStorage.removeItem("email");
+                alert("✅ تم تسجيل الخروج بنجاح. نراك قريباً!");
+                location.reload(); // إعادة تحميل الصفحة
+            }, function(error) {
+                alert("❌ حدث خطأ أثناء تسجيل الخروج. يرجى المحاولة مرة أخرى.");
+                console.error("EmailJS Error:", error);
+            });
+        });
+    });
+    </script>
 
 </body>
 </html>
